@@ -60,7 +60,9 @@ const displayMovements = function (movements, sort = false) {
   //setting innerHTML to empty string will empty the containers.
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -213,4 +215,11 @@ btnTransfer.addEventListener('click', function (e) {
     //update UI
     updateUI(currentAccount);
   }
+});
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
